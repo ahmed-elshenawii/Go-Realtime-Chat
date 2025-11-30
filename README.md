@@ -10,28 +10,30 @@ It supports multiple clients, broadcasting messages, and concurrency using gorou
 * Join/Leave notifications for other clients
 * Each client has its own send/receive goroutines
 * Clients list protected with sync.Mutex
-* JSON-based protocol over TCP
+* Messages are plain text (no JSON for join/leave notifications)
 
 ## How it Works
 
 1. Client connects to the server.
 2. When a client joins, all other clients are notified:
 
-   ```json
-   {"type": "join", "from": "User1"}
-   ```
+```
+User 1 joined
+```
+
 3. When a client sends a message, it is broadcasted to all other clients (no self-echo):
 
-   ```json
-   {"type": "message", "from": "User1", "body": "Hello everyone!"}
-   ```
+```
+User 1: Hello everyone!
+```
+
 4. When a client leaves, all other clients are notified:
 
-   ```json
-   {"type": "leave", "from": "User1"}
-   ```
+```
+User 1 left
+```
 
-## Running the Project(Broadcast Chat Server)
+## Running the Project
 
 ### Server
 
